@@ -1,0 +1,31 @@
+def SymbolToNumber(s):
+	if s == 'A':
+       		return 0
+    	elif s == 'C':
+        	return 1
+    	elif s == 'G':
+        	return 2
+    	elif s == 'T':
+        	return 3
+
+
+#recursive function to convert PatterntoNumber
+def PatterntoNumber(Pattern):
+	if Pattern == "":
+		return 0
+	symbol = Pattern[-1:]
+	prefix = Pattern[:-1]
+	return 4 * PatterntoNumber(prefix) +SymbolToNumber(symbol)
+
+def FrequentWords(text, k):
+	freq_array =[0]* (4**k)
+	for i in range(0, len(text) -k + 1):
+		# extract current pattern (k-mer)
+		pattern = text[i:i+k]
+		patnum = PatterntoNumber(pattern)
+	    	freq_array[patnum] += 1
+	ret_freq_array = ' '.join(map(str, freq_array))
+	return ret_freq_array
+dna="AAGTCTCTCGGCAATCGAAAGTAAGGTAGGGTTACGCATGAAGCAAACGGTTTTGCCCACAACGAAGCCTGAATATGGCTTACCTCGGGGATTAGATCATTTTCACCGTGTAATCGAGTACGTTTAACCTTCAAGCTACAGAGTAGTGCAATGCCTGCTGTTTTAAAAGATGTCTCAAAACCTACTATGGGGACTGGTGCGGGGCGTTCAACATCCCGAGCCGCGAGTGCTAAGCGGACCCCAGGGAAAACCGGACGTGCGAATCTAGTGGTTTTTAGGGTAGATGGACAGCGCAATCGTGAGAGGAATACCTACATGCGGTGAGACGAGAGGCGATGGGTGGTGACCTGGAACGTTGGGCGTTGCCTTCTTCTGCGGACTTTGGCGTGACTACCTTCTCTCAGTGTGACACCCCTCCGGTTCTGAGGTTCGTAAAGTGTTAATCTGCATGCGAAATATTTCACGATTCGTGTTAAGTGCTACGACTATATGAGCTCGCGCTTCAACGTGGGTGCTATACTAGTGACTGATATCACTCTACCGTTCGGGGCCAATGTCATAAAATAAAGCTCCTTTGACAACCATCCACCGAGGTTAGACGCCACCCGCATGGATCCACTACTACCTTCACGACTATT"
+k=5
+print(FrequentWords(dna,k))
